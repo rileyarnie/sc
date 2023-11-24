@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "threadheads.com",
+        hostname: "**",
       },
     ],
   },

@@ -7,9 +7,9 @@ import { usePathname } from "next/navigation";
 import { Badge } from "@mui/material";
 import { CartContext } from "@/context/CartContext";
 
-type Props = {};
+type Props = { session: boolean };
 
-const Navbar = (props: Props) => {
+const Navbar = ({ session }: Props) => {
   const pathname = usePathname();
 
   const { cartItems } = useContext(CartContext);
@@ -20,7 +20,11 @@ const Navbar = (props: Props) => {
         SHOP IT
       </Link>
       <div className=" flex space-x-10">
-        {pathname !== "/auth" && <Link href="/auth">Login / Regitster </Link>}
+        {session ? (
+          <Link href="/auth">Logout </Link>
+        ) : (
+          <Link href="/auth">Login / Register </Link>
+        )}
         <Link href="/cart">
           <Badge badgeContent={cartItems.length} color="primary">
             <ShoppingCartOutlinedIcon />

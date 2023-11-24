@@ -44,9 +44,11 @@ const Auth = (props: Props) => {
           </button>
         </div>
         {authState === AuthType.LOGIN ? <Login /> : <Register />}
-        <div className="my-6 bg-blue-600 py-2 rounded-md text-center text-white">
-          {authState === AuthType.LOGIN ? "LOGIN" : "REGISTER"}
-        </div>
+        {/* <div className="my-6 bg-blue-600 py-2 rounded-md text-center text-white">
+          <button type="submit">
+            {authState === AuthType.LOGIN ? "LOGIN" : "REGISTER"}
+          </button>
+        </div> */}
       </div>
     </div>
   );

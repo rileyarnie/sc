@@ -2,6 +2,7 @@
 
 import { ProductType } from "@/components/products/ProductList";
 import { createContext, useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export type CartItemType = ProductType & { quantity: number };
 
@@ -22,11 +23,7 @@ export const CartContext = createContext<CartContextType>({
 });
 
 export const CartProvider = ({ children }: any) => {
-  const [cartItems, setCartItems] = useState<CartItemType[]>(
-    localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart") as string)
-      : []
-  );
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
   const addToCart = (item: ProductType) => {
     const itemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
@@ -42,6 +39,7 @@ export const CartProvider = ({ children }: any) => {
     } else {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
+    toast.success("Item added to cart");
   };
 
   const removeFromCart = (item: ProductType) => {
@@ -60,7 +58,9 @@ export const CartProvider = ({ children }: any) => {
     }
   };
 
-  const emptyCart = () => setCartItems([]);
+  const emptyCart = () => {
+    setCartItems([]);
+  };
 
   const calculateCartTotalPrice = () => {
     return cartItems.reduce(

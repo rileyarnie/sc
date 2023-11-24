@@ -13,19 +13,17 @@ type Props = {
 const Product = ({ product }: Props) => {
   const { addToCart } = useContext(CartContext);
 
-  const handleAddToCart = (item: ProductType) => {
-    console.log("item", item);
-  };
-
   return (
     <div className="border-[0.5px] rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300  ">
-      <Image
-        className="object-contain"
-        src={product.image_url}
-        alt={product.product_name}
-        height={1000}
-        width={1000}
-      />
+      <div className=" max-h-[500px] h-[50]px bg-white border-b-[0.5px] border-gray-300">
+        <Image
+          className="object-contain h-[400px] max-h-[400px]"
+          src={product.image_url}
+          alt={product.product_name}
+          height={1000}
+          width={1000}
+        />
+      </div>
       <div className="p-4">
         <div className="space-y-2">
           <p className="font-semibold text-lg">{product.product_name}</p>
