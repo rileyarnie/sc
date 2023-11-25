@@ -6,7 +6,8 @@ import { CartProvider } from "@/context/CartContext";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import Provider from "@/context/ClientContext";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import Auth from "./auth/Auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,13 @@ export default async function RootLayout({
       <body className={inter.className}>
         <CartProvider>
           <Navbar session={!!session} />
-          <Provider session={session}>{children}</Provider>
+
+          {session ? (
+            <Provider session={session}>{children}</Provider>
+          ) : (
+            <Auth />
+          )}
+
           <Toaster />
         </CartProvider>
       </body>

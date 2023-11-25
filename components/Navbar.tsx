@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@mui/material";
 import { CartContext } from "@/context/CartContext";
+import { signOut } from "next-auth/react";
 
 type Props = { session: boolean };
 
@@ -21,7 +22,7 @@ const Navbar = ({ session }: Props) => {
       </Link>
       <div className=" flex space-x-10">
         {session ? (
-          <Link href="/auth">Logout </Link>
+          <button onClick={() => signOut()}>Logout </button>
         ) : (
           <Link href="/auth">Login / Register </Link>
         )}
