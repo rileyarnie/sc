@@ -14,6 +14,7 @@ const Login = (props: Props) => {
     phone_number: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -21,13 +22,17 @@ const Login = (props: Props) => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await signIn("credentials", {
         ...userData,
         redirect: false,
       });
+      setLoading(false);
       router.push("/");
     } catch (error: any) {
+      console.log("error", error);
+      setLoading(false);
       toast.error("Something went wrong. Please try again");
     }
   };
@@ -56,12 +61,16 @@ const Login = (props: Props) => {
           type="password"
         />
       </div>
-      <button
-        type="submit"
-        className="w-full my-6 bg-blue-600 py-2 rounded-md text-center text-white"
-      >
-        LOGIN
-      </button>
+      {loading ? (
+        <p>Logging in ...</p>
+      ) : (
+        <button
+          type="submit"
+          className="w-full my-6 bg-blue-600 py-2 rounded-md text-center text-white"
+        >
+          LOGIN
+        </button>
+      )}
     </form>
   );
 };

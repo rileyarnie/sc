@@ -3,16 +3,17 @@
 import React, { useContext } from "react";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@mui/material";
 import { CartContext } from "@/context/CartContext";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
-type Props = { session: boolean };
+type Props = {};
 
-const Navbar = ({ session }: Props) => {
+const Navbar = () => {
   const pathname = usePathname();
-
+  const { status, data } = useSession();
+  const router = useRouter();
   const { cartItems } = useContext(CartContext);
 
   return (
@@ -21,8 +22,15 @@ const Navbar = ({ session }: Props) => {
         SHOP IT
       </Link>
       <div className=" flex space-x-10">
-        {session ? (
-          <button onClick={() => signOut()}>Logout </button>
+        {data ? (
+          <button
+            onClick={() => {
+              signOut();
+              router.push("/");
+            }}
+          >
+            Logout{" "}
+          </button>
         ) : (
           <Link href="/auth">Login / Register </Link>
         )}

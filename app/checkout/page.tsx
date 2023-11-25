@@ -35,6 +35,8 @@ const CheckoutPage = (props: Props) => {
     }
   };
 
+  if (!data) return router.push("/auth");
+
   return (
     <div className="p-4">
       <p className="text-center">Your Order Summary</p>
