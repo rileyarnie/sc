@@ -2,7 +2,7 @@ import ProductList from "@/components/products/ProductList";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
@@ -10,9 +10,9 @@ export default async function Home() {
 
   // const router = useRouter();
 
-  // if (!data) return router.push("/auth");
-
   const session = await getServerSession(authOptions);
+
+  if (!session) return redirect("/auth");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
